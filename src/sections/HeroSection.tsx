@@ -19,6 +19,7 @@ export function HeroSection() {
   const heroRef = useRef<HTMLDivElement>(null);
   const blurbRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -101,13 +102,26 @@ export function HeroSection() {
         <div ref={heroRef} className="w-full max-w-6xl">
           <div className="relative w-full aspect-video rounded-3xl overflow-hidden border-4 border-white/10 shadow-2xl bg-black">
             <iframe
-              src={heroVideo.embedUrl}
+              key={isMuted ? 'muted' : 'unmuted'}
+              src={isMuted ? heroVideo.embedUrl : heroVideo.embedUrl.replace('mute=1&', '')}
               title={heroVideo.title}
               className="absolute inset-0 w-full h-full"
               style={{ transform: 'scale(1.3)', marginTop: '-60px' }}
               allow="autoplay; encrypted-media; picture-in-picture"
               allowFullScreen
             />
+
+            {isMuted && (
+              <button
+                onClick={() => setIsMuted(false)}
+                className="absolute top-4 right-4 bg-teal-500/90 hover:bg-teal-500 text-white px-3 py-2 rounded-lg flex items-center gap-2 text-sm font-medium transition-colors z-20"
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                </svg>
+                Tap for sound
+              </button>
+            )}
 
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
             <div className="absolute bottom-4 left-6 text-white max-w-3xl">
