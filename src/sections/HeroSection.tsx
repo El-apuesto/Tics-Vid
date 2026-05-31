@@ -108,16 +108,15 @@ export function HeroSection() {
               allow="autoplay; encrypted-media; picture-in-picture"
               allowFullScreen
             />
+          </div>
 
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
-            <div className="absolute bottom-6 left-6 text-white max-w-3xl">
-              <p className="text-xl lg:text-3xl font-black leading-snug">
-                Zachariah Tippett — Tourette's comedian bringing truth, laughter, and awareness to every stage.
-              </p>
-              <p className="mt-4 text-sm lg:text-base text-white/75 max-w-2xl">
-                Real stories. Real tics. Real laughter. Watch the set, then scroll down for shows, merch, and ways to support.
-              </p>
-            </div>
+          <div className="mt-6 text-center px-4">
+            <p className="text-xl lg:text-3xl font-normal leading-snug text-foreground max-w-3xl mx-auto">
+              Zachariah Tippett — Tourette's comedian bringing truth, laughter, and awareness to every stage.
+            </p>
+            <p className="mt-4 text-sm lg:text-base text-muted-foreground max-w-2xl mx-auto">
+              Real stories. Real tics. Real laughter. Watch the set, then scroll down for shows, merch, and ways to support.
+            </p>
           </div>
 
           <div ref={blurbRef} className="mt-8 flex flex-col items-center gap-4 text-center">
@@ -130,7 +129,7 @@ export function HeroSection() {
                 href="https://www.google.com/search?q=Zachariah+Tippett"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-primary font-bold hover:underline"
+                className="inline-flex items-center gap-2 text-primary font-medium hover:underline"
               >
                 <ExternalLink className="w-4 h-4" />
                 Google Me
@@ -138,7 +137,7 @@ export function HeroSection() {
               <span className="text-muted-foreground">|</span>
               <button
                 onClick={scrollToAbout}
-                className="inline-flex items-center gap-2 text-primary font-bold hover:underline"
+                className="inline-flex items-center gap-2 text-primary font-medium hover:underline"
               >
                 See Upcoming Shows
                 <ChevronDown className="w-4 h-4" />
