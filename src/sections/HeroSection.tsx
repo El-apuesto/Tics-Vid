@@ -110,7 +110,7 @@ export function HeroSection() {
             />
 
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
-            <div className="absolute bottom-20 left-6 text-white max-w-3xl">
+            <div className="absolute bottom-32 left-6 text-white max-w-3xl">
               <p className="text-xl lg:text-3xl font-normal leading-snug">
                 Zachariah Tippett — Tourette's comedian bringing truth, laughter, and awareness to every stage.
               </p>
