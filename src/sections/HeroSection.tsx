@@ -108,15 +108,16 @@ export function HeroSection() {
               allow="autoplay; encrypted-media; picture-in-picture"
               allowFullScreen
             />
-          </div>
 
-          <div className="mt-6 text-center px-4">
-            <p className="text-xl lg:text-3xl font-normal leading-snug text-foreground max-w-3xl mx-auto">
-              Zachariah Tippett — Tourette's comedian bringing truth, laughter, and awareness to every stage.
-            </p>
-            <p className="mt-4 text-sm lg:text-base text-muted-foreground max-w-2xl mx-auto">
-              Real stories. Real tics. Real laughter. Watch the set, then scroll down for shows, merch, and ways to support.
-            </p>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+            <div className="absolute bottom-20 left-6 text-white max-w-3xl">
+              <p className="text-xl lg:text-3xl font-normal leading-snug">
+                Zachariah Tippett — Tourette's comedian bringing truth, laughter, and awareness to every stage.
+              </p>
+              <p className="mt-4 text-sm lg:text-base text-white/75 max-w-2xl">
+                Real stories. Real tics. Real laughter. Watch the set, then scroll down for shows, merch, and ways to support.
+              </p>
+            </div>
           </div>
 
           <div ref={blurbRef} className="mt-8 flex flex-col items-center gap-4 text-center">
