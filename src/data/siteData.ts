@@ -1,5 +1,7 @@
 import type { Product, Show, Video } from '@/types';
 
+// NOTE: Replace the `sku` values below with the real Merchize SKUs from your
+// Merchize Dashboard → Products. The placeholders follow the pattern TINC-XXX-NNN.
 export const products: Product[] = [
   {
     id: '1',
@@ -9,7 +11,7 @@ export const products: Product[] = [
     image: '/product_tshirt_1.jpg',
     category: 'apparel',
     variants: ['Men\'s T-Shirt', 'Women\'s T-Shirt', 'Unisex Hoodie'],
-    printfulUrl: 'https://www.printful.com/'
+    sku: 'TINC-TEE-001',
   },
   {
     id: '2',
@@ -19,7 +21,7 @@ export const products: Product[] = [
     image: '/product_sweater_1.jpg',
     category: 'apparel',
     variants: ['Men\'s T-Shirt', 'Women\'s T-Shirt', 'Unisex Sweater'],
-    printfulUrl: 'https://www.printful.com/'
+    sku: 'TINC-HOOD-002',
   },
   {
     id: '3',
@@ -29,7 +31,7 @@ export const products: Product[] = [
     image: '/product_tshirt_1.jpg',
     category: 'apparel',
     variants: ['Men\'s T-Shirt', 'Women\'s T-Shirt', 'Unisex Sweater'],
-    printfulUrl: 'https://www.printful.com/'
+    sku: 'TINC-TEE-003',
   },
   {
     id: '4',
@@ -39,7 +41,7 @@ export const products: Product[] = [
     image: '/product_sweater_1.jpg',
     category: 'apparel',
     variants: ['Men\'s T-Shirt', 'Women\'s T-Shirt', 'Unisex Sweater'],
-    printfulUrl: 'https://www.printful.com/'
+    sku: 'TINC-SWS-004',
   },
   {
     id: '5',
@@ -49,7 +51,7 @@ export const products: Product[] = [
     image: '/product_tshirt_1.jpg',
     category: 'apparel',
     variants: ['Men\'s T-Shirt', 'Women\'s T-Shirt', 'Unisex Sweater'],
-    printfulUrl: 'https://www.printful.com/'
+    sku: 'TINC-TEE-005',
   },
   {
     id: '6',
@@ -59,7 +61,7 @@ export const products: Product[] = [
     image: '/product_sweater_1.jpg',
     category: 'apparel',
     variants: ['Men\'s T-Shirt', 'Women\'s T-Shirt', 'Unisex Sweater'],
-    printfulUrl: 'https://www.printful.com/'
+    sku: 'TINC-HOOD-006',
   },
   {
     id: '7',
@@ -69,7 +71,7 @@ export const products: Product[] = [
     image: '/product_tshirt_1.jpg',
     category: 'apparel',
     variants: ['Men\'s T-Shirt', 'Women\'s T-Shirt', 'Unisex Sweater'],
-    printfulUrl: 'https://www.printful.com/'
+    sku: 'TINC-TEE-007',
   },
   {
     id: '8',
@@ -79,7 +81,7 @@ export const products: Product[] = [
     image: '/product_tshirt_1.jpg',
     category: 'apparel',
     variants: ['Men\'s T-Shirt', 'Women\'s T-Shirt', 'Unisex Sweater'],
-    printfulUrl: 'https://www.printful.com/'
+    sku: 'TINC-TEE-008',
   }
 ];
 
@@ -92,7 +94,7 @@ export const accessoryProducts: Product[] = [
     image: '/shop_hoodie.jpg',
     category: 'accessories',
     variants: ['One Size'],
-    printfulUrl: 'https://www.printful.com/'
+    sku: 'TINC-BNE-A01',
   },
   {
     id: 'a2',
@@ -102,7 +104,7 @@ export const accessoryProducts: Product[] = [
     image: '/product_sticker_1.jpg',
     category: 'accessories',
     variants: ['Standard Pack'],
-    printfulUrl: 'https://www.printful.com/'
+    sku: 'TINC-STK-A02',
   },
   {
     id: 'a3',
@@ -112,7 +114,7 @@ export const accessoryProducts: Product[] = [
     image: '/shop_mug.jpg',
     category: 'accessories',
     variants: ['11oz Mug'],
-    printfulUrl: 'https://www.printful.com/'
+    sku: 'TINC-MUG-A03',
   }
 ];
 

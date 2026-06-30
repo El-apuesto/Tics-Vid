@@ -2,14 +2,28 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Arrow, Underline, TealRibbon } from '@/components/doodles';
-import { ShoppingBag } from 'lucide-react';
+import { ShoppingBag, Check } from 'lucide-react';
 import { products, accessoryProducts } from '@/data/siteData';
-import type { Product } from '@/types';
+import type { CartItem, Product } from '@/types';
+import { toast } from 'sonner';
 
 gsap.registerPlugin(ScrollTrigger);
 
-function ProductCard({ product }: { product: Product }) {
+interface ProductCardProps {
+  product: Product;
+  onAddToCart: (item: CartItem) => void;
+}
+
+function ProductCard({ product, onAddToCart }: ProductCardProps) {
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0]);
+  const [added, setAdded] = useState(false);
+
+  const handleAddToCart = () => {
+    onAddToCart({ product, variant: selectedVariant, quantity: 1 });
+    toast.success(`${product.name} added to cart`);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1500);
+  };
 
   return (
     <div className="product-card group">
@@ -51,26 +65,37 @@ function ProductCard({ product }: { product: Product }) {
           ))}
         </div>
 
-        {/* Price & Actions */}
+        {/* Price & Add to Cart */}
         <div className="flex items-center justify-between pt-2">
           <span className="font-black text-xl text-primary">${product.price}</span>
-          
-          <a
-            href={product.printfulUrl || 'https://www.printful.com/'}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary text-sm"
+
+          <button
+            onClick={handleAddToCart}
+            className={`btn-primary text-sm transition-all ${added ? 'bg-green-600 border-green-600' : ''}`}
           >
-            <ShoppingBag className="w-4 h-4 mr-2" />
-            Buy on Printful
-          </a>
+            {added ? (
+              <>
+                <Check className="w-4 h-4 mr-2" />
+                Added!
+              </>
+            ) : (
+              <>
+                <ShoppingBag className="w-4 h-4 mr-2" />
+                Add to Cart
+              </>
+            )}
+          </button>
         </div>
       </div>
     </div>
   );
 }
 
-export function ProductsSection() {
+interface ProductsSectionProps {
+  onAddToCart: (item: CartItem) => void;
+}
+
+export function ProductsSection({ onAddToCart }: ProductsSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const apparelRef = useRef<HTMLDivElement>(null);
   const accessoriesRef = useRef<HTMLDivElement>(null);
@@ -79,7 +104,6 @@ export function ProductsSection() {
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Apparel section animation
       const apparelCards = apparelRef.current?.querySelectorAll('.product-card');
       if (apparelCards && apparelCards.length > 0) {
         gsap.fromTo(
@@ -100,7 +124,6 @@ export function ProductsSection() {
         );
       }
 
-      // Accessories section animation
       const accessoryCards = accessoriesRef.current?.querySelectorAll('.product-card');
       if (accessoryCards && accessoryCards.length > 0) {
         gsap.fromTo(
@@ -150,7 +173,7 @@ export function ProductsSection() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {products.slice(0, 4).map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} product={product} onAddToCart={onAddToCart} />
             ))}
           </div>
         </div>
@@ -169,7 +192,7 @@ export function ProductsSection() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {products.slice(4, 8).map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} product={product} onAddToCart={onAddToCart} />
             ))}
           </div>
         </div>
@@ -188,7 +211,7 @@ export function ProductsSection() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {accessoryProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} product={product} onAddToCart={onAddToCart} />
             ))}
           </div>
         </div>

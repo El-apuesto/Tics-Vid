@@ -7,6 +7,34 @@ export interface Product {
   category: 'apparel' | 'accessories';
   variants: string[];
   printfulUrl?: string;
+  /** Merchize catalog SKU — find it in your Merchize Dashboard under Products */
+  sku?: string;
+}
+
+export interface ShippingInfo {
+  fullName: string;
+  email: string;
+  phone?: string;
+  address1: string;
+  address2?: string;
+  city: string;
+  state: string;
+  postcode: string;
+  country: string;
+}
+
+export interface MerchizeOrderItem {
+  name: string;
+  sku: string;
+  quantity: number;
+  price: number;
+  variant: string;
+}
+
+export interface OrderResult {
+  orderId: string;
+  status: string;
+  message?: string;
 }
 
 export interface Show {
