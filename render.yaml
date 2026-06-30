@@ -1,0 +1,50 @@
+services:
+  - type: web
+    name: tourettes-inc
+    runtime: node
+    region: oregon
+
+    # Build: install deps + compile Vite frontend into dist/
+    buildCommand: npm install && npm run build
+
+    # Start: Express serves the Vite build and handles /api routes
+    startCommand: node server/index.js
+
+    # Health check — Render pings this to confirm the service is up
+    healthCheckPath: /api/health
+
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+      # PORT is automatically injected by Render — do not hardcode it
+
+      # Set this to your Render service URL once deployed:
+      # e.g. https://tourettes-inc.onrender.com
+      - key: FRONTEND_URL
+        sync: false
+
+      # ── Merchize (REQUIRED) ──────────────────────────────────────────────────
+      # Get from: Merchize Dashboard → Integrations → API
+      # Format: https://bo-group-X-Y.merchize.com/{store_id}/bo-api
+      - key: MERCHIZE_API_BASE_URL
+        sync: false
+
+      # Monthly rotating JWT — copy from Merchize Dashboard → Integrations → API
+      - key: MERCHIZE_ACCESS_TOKEN
+        sync: false
+
+      # From: Merchize Dashboard → Webhooks → Secret Key
+      - key: MERCHIZE_WEBHOOK_SECRET
+        sync: false
+
+      # ── Stripe (OPTIONAL — add only if you want card payments) ──────────────
+      - key: STRIPE_SECRET_KEY
+        sync: false
+
+      - key: STRIPE_PUBLISHABLE_KEY
+        sync: false
+
+      # From: Stripe Dashboard → Webhooks → your endpoint → Signing secret
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false

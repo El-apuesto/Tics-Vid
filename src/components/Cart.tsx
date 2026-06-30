@@ -1,4 +1,4 @@
-import { X, Plus, Minus, ShoppingBag, ExternalLink } from 'lucide-react';
+import { X, Plus, Minus, ShoppingBag, ArrowRight } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
@@ -13,10 +13,16 @@ interface CartProps {
   items: CartItem[];
   onUpdateQuantity: (index: number, delta: number) => void;
   onRemoveItem: (index: number) => void;
+  onCheckout: () => void;
 }
 
-export function Cart({ isOpen, onClose, items, onUpdateQuantity, onRemoveItem }: CartProps) {
+export function Cart({ isOpen, onClose, items, onUpdateQuantity, onRemoveItem, onCheckout }: CartProps) {
   const total = items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+
+  const handleCheckout = () => {
+    onClose();
+    onCheckout();
+  };
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
@@ -104,17 +110,15 @@ export function Cart({ isOpen, onClose, items, onUpdateQuantity, onRemoveItem }:
               <span className="font-black text-xl text-primary">${total}</span>
             </div>
             <p className="text-xs text-muted-foreground">
-              Shipping calculated at checkout. Fulfilled by Printful.
+              Shipping calculated at checkout. Fulfilled by Merchize.
             </p>
-            <a
-              href="https://www.printful.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary w-full inline-flex justify-center"
+            <button
+              onClick={handleCheckout}
+              className="btn-primary w-full inline-flex justify-center items-center gap-2"
             >
-              Checkout on Printful
-              <ExternalLink className="w-4 h-4 ml-2" />
-            </a>
+              Checkout
+              <ArrowRight className="w-4 h-4" />
+            </button>
           </div>
         )}
       </SheetContent>

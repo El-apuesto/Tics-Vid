@@ -5,6 +5,7 @@ import { Navigation } from '@/components/Navigation';
 import { Cart } from '@/components/Cart';
 import { AdminDashboard } from '@/components/AdminDashboard';
 import { DonateModal } from '@/components/DonateModal';
+import { CheckoutModal } from '@/components/CheckoutModal';
 import { HeroSection } from '@/sections/HeroSection';
 import { AboutSection } from '@/sections/AboutSection';
 import { ProductsSection } from '@/sections/ProductsSection';
@@ -23,6 +24,9 @@ function App() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
+  // Checkout modal state
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+
   // Admin state
   const [isAdminOpen, setIsAdminOpen] = useState(false);
 
@@ -35,13 +39,8 @@ function App() {
 
     const handleKeyDown = (e: KeyboardEvent) => {
       keysPressed.add(e.key);
-      
-      // Check for Ctrl + Tab + ArrowDown
-      if (
-        e.ctrlKey &&
-        e.key === 'ArrowDown'
-      ) {
-        // Also check if Tab is being held (using the set)
+
+      if (e.ctrlKey && e.key === 'ArrowDown') {
         if (keysPressed.has('Tab')) {
           e.preventDefault();
           setIsAdminOpen(true);
@@ -63,6 +62,21 @@ function App() {
   }, []);
 
   // Cart functions
+  const handleAddToCart = useCallback((item: CartItem) => {
+    setCartItems((prev) => {
+      const existing = prev.findIndex(
+        (i) => i.product.id === item.product.id && i.variant === item.variant
+      );
+      if (existing >= 0) {
+        const updated = [...prev];
+        updated[existing] = { ...updated[existing], quantity: updated[existing].quantity + 1 };
+        return updated;
+      }
+      return [...prev, item];
+    });
+    setIsCartOpen(true);
+  }, []);
+
   const handleUpdateQuantity = useCallback((index: number, delta: number) => {
     setCartItems((prev) => {
       const updated = [...prev];
@@ -85,9 +99,12 @@ function App() {
     toast.info('Item removed from cart');
   }, []);
 
+  const handleOrderSuccess = useCallback(() => {
+    setCartItems([]);
+  }, []);
+
   // Global scroll snap for pinned sections
   useEffect(() => {
-    // Wait for all ScrollTriggers to be created
     const timer = setTimeout(() => {
       const pinned = ScrollTrigger.getAll()
         .filter((st) => st.vars.pin)
@@ -150,7 +167,7 @@ function App() {
       <main className="relative">
         <HeroSection />
         <AboutSection />
-        <ProductsSection />
+        <ProductsSection onAddToCart={handleAddToCart} />
         <SlideshowSection />
         <SupportSection onDonateClick={() => setIsDonateOpen(true)} />
         <ClosingSection />
@@ -164,6 +181,15 @@ function App() {
         items={cartItems}
         onUpdateQuantity={handleUpdateQuantity}
         onRemoveItem={handleRemoveItem}
+        onCheckout={() => setIsCheckoutOpen(true)}
+      />
+
+      {/* Checkout Modal (Merchize order submission) */}
+      <CheckoutModal
+        isOpen={isCheckoutOpen}
+        onClose={() => setIsCheckoutOpen(false)}
+        items={cartItems}
+        onOrderSuccess={handleOrderSuccess}
       />
 
       {/* Admin Dashboard */}
@@ -179,7 +205,7 @@ function App() {
       />
 
       {/* Toast notifications */}
-      <Toaster 
+      <Toaster
         position="bottom-right"
         toastOptions={{
           style: {
