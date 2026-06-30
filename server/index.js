@@ -18,7 +18,7 @@ app.use('/api/webhooks/stripe', express.raw({ type: 'application/json' }));
 
 app.use(express.json());
 app.use(cors({
-  origin: [FRONTEND_URL, /\.vercel\.app$/, /\.netlify\.app$/],
+  origin: [FRONTEND_URL, /\.onrender\.com$/, /\.vercel\.app$/, /\.netlify\.app$/],
   methods: ['GET', 'POST', 'OPTIONS'],
 }));
 
